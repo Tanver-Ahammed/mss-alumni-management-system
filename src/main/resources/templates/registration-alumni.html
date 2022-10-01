@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>ICT - Alumni Management System</title>
+</head>
+<body>
+
+<section>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-7 col-md-6 col-sm-6 container justify-content-center card">
+                <h1 class="text-center"> Add New Alumni </h1>
+                <div>
+                    <p th:text="${message}" style="color: #318043"></p>
+                    <p th:text="${dangerMessage}" style="color: red"></p>
+                </div>
+                <div class="card-body">
+
+                    <!--alumni form started....-->
+                    <form th:action="@{/alumni/save}" th:object="${alumniDTO}" method="post"
+                          enctype="multipart/form-data" onsubmit="return alumniFormValidator()">
+
+                        <!--alumni name div....-->
+                        <div class="mb-3">
+                            <label for="alumniName" class="form-label">Alumni's Name</label>
+                            <input
+                                    type="text"
+                                    id="alumniName"
+                                    name="name"
+                                    th:field="*{name}"
+                                    th:value="${alumniDTO.name}"
+                                    th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
+                                    required="required"
+                                    class="form-control"
+                                    aria-describedby="validationServer03FeedbackAlumniName"
+                            >
+                            <div
+                                    th:each="e : ${#fields.errors('name')}"
+                                    th:text="${e}"
+                                    id="validationServer03FeedbackAlumniName"
+                                    class="invalid-feedback">
+                            </div>
+                        </div>
+
+                        <!--alumni email div....-->
+                        <div class="mb-3">
+                            <label for="alumniEmail" class="form-label">Alumni's Email [it*****@mbstu.ac.bd]</label>
+                            <input
+                                    type="email"
+                                    id="alumniEmail"
+                                    name="email"
+                                    th:field="*{email}"
+                                    th:value="${alumniDTO.email}"
+                                    th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}"
+                                    required="required"
+                                    class="form-control"
+                                    aria-describedby="validationServer03FeedbackAlumniEmail"
+                            >
+                            <span id="emailMessage" style="color: red"></span>
+                            <div
+                                    th:each="e : ${#fields.errors('email')}"
+                                    th:text="${e}"
+                                    id="validationServer03FeedbackAlumniEmail"
+                                    class="invalid-feedback">
+                            </div>
+                        </div>
+
+                        <!--alumni contact number div....-->
+                        <div class="mb-3">
+                            <label for="alumniContact" class="form-label">Alumni Contact Number</label>
+                            <input
+                                    type="text"
+                                    id="alumniContact"
+                                    name="contact"
+                                    th:field="*{contact}"
+                                    th:value="${alumniDTO.contact}"
+                                    required="required"
+                                    class="form-control"
+                                    aria-describedby="emailHelp"
+                            >
+                            <span id="contactMessage" style="color: red"></span>
+                            <div
+                                    th:each="e : ${#fields.errors('contact')}"
+                                    th:text="${e}"
+                                    id="validationServer03FeedbackAlumniContact"
+                                    class="invalid-feedback">
+                            </div>
+                        </div>
+
+                        <!--alumni session-->
+                        <div class="mb-3">
+                            <label for="alumniSession" class="form-label">Alumni Session [20**-**]</label>
+                            <input
+                                    type="text"
+                                    id="alumniSession"
+                                    name="session"
+                                    th:field="*{session}"
+                                    th:value="${alumniDTO.session}"
+                                    required="required"
+                                    class="form-control"
+                                    aria-describedby="emailHelp"
+                            >
+                            <span id="sessionMessage" style="color: red"></span>
+                            <div
+                                    th:each="e : ${#fields.errors('session')}"
+                                    th:text="${e}"
+                                    id="validationServer03FeedbackAlumniSession"
+                                    class="invalid-feedback">
+                            </div>
+                        </div>
+
+                        <!--alumni designation-->
+                        <div class="mb-3">
+                            <label for="alumniDesignation" class="form-label">Alumni Designation</label>
+                            <input
+                                    type="text"
+                                    id="alumniDesignation"
+                                    name="session"
+                                    th:field="*{designation}"
+                                    th:value="${alumniDTO.designation}"
+                                    required="required"
+                                    class="form-control"
+                                    aria-describedby="emailHelp"
+                            >
+                            <span id="designationMessage" style="color: red"></span>
+                            <div
+                                    th:each="e : ${#fields.errors('designation')}"
+                                    th:text="${e}"
+                                    id="validationServer03FeedbackAlumniDesignation"
+                                    class="invalid-feedback">
+                            </div>
+                        </div>
+
+                        <!--alumni workPlace-->
+                        <div class="mb-3">
+                            <label for="workPlaceDesignation" class="form-label">Alumni Work Place</label>
+                            <input
+                                    type="text"
+                                    id="workPlaceDesignation"
+                                    name="session"
+                                    th:field="*{workPlace}"
+                                    th:value="${alumniDTO.workPlace}"
+                                    required="required"
+                                    class="form-control"
+                                    aria-describedby="emailHelp"
+                            >
+                            <span id="workPlaceMessage" style="color: red"></span>
+                            <div
+                                    th:each="e : ${#fields.errors('workPlace')}"
+                                    th:text="${e}"
+                                    id="validationServer03FeedbackAlumniWorkPlace"
+                                    class="invalid-feedback">
+                            </div>
+                        </div>
+
+                        <!--alumni facebookLink-->
+                        <div class="mb-3">
+                            <label for="facebookLink" class="form-label">Alumni Facebook Link</label>
+                            <input
+                                    type="text"
+                                    id="facebookLink"
+                                    name="session"
+                                    th:field="*{facebookLink}"
+                                    th:value="${alumniDTO.facebookLink}"
+                                    required="required"
+                                    class="form-control"
+                                    aria-describedby="emailHelp"
+                            >
+                            <span id="facebookLinkMassage" style="color: red"></span>
+                            <div
+                                    th:each="e : ${#fields.errors('facebookLink')}"
+                                    th:text="${e}"
+                                    id="validationServer03FeedbackAlumniFacebookLink"
+                                    class="invalid-feedback">
+                            </div>
+                        </div>
+
+                        <!--alumni linkedLink-->
+                        <div class="mb-3">
+                            <label for="linkedLink" class="form-label">Alumni Linked Link</label>
+                            <input
+                                    type="text"
+                                    id="linkedLink"
+                                    name="linkedLink"
+                                    th:field="*{linkedLink}"
+                                    th:value="${alumniDTO.linkedLink}"
+                                    required="required"
+                                    class="form-control"
+                                    aria-describedby="emailHelp"
+                            >
+                            <span id="linkedLinkMessage" style="color: red"></span>
+                            <div
+                                    th:each="e : ${#fields.errors('linkedLink')}"
+                                    th:text="${e}"
+                                    id="validationServer03FeedbackAlumniLinkedLink"
+                                    class="invalid-feedback">
+                            </div>
+                        </div>
+
+                        <!--alumni github-->
+                        <div class="mb-3">
+                            <label for="githubLink" class="form-label">Alumni Github Link</label>
+                            <input
+                                    type="text"
+                                    id="githubLink"
+                                    name="githubLink"
+                                    th:field="*{githubLink}"
+                                    th:value="${alumniDTO.githubLink}"
+                                    required="required"
+                                    class="form-control"
+                                    aria-describedby="emailHelp"
+                            >
+                            <span id="githubLinkMessage" style="color: red"></span>
+                            <div
+                                    th:each="e : ${#fields.errors('githubLink')}"
+                                    th:text="${e}"
+                                    id="validationServer03FeedbackGithubLink"
+                                    class="invalid-feedback">
+                            </div>
+                        </div>
+
+                        <!--alumni image div....-->
+                        <div class="mb-3">
+                            <label for="alumniImage" class="form-label">Book's Image</label>
+                            <input
+                                    type="file"
+                                    id="alumniImage"
+                                    name="alumniImage"
+                                    accept="image/*"
+                                    th:value="${alumniDTO.image}"
+                                    required="required"
+                                    class="form-control"
+                                    aria-describedby="emailHelp">
+                        </div>
+
+                        <!--alumni password div....-->
+                        <div class="mb-3">
+                            <label for="alumniPassword" class="form-label">Alumni Password</label>
+                            <input
+                                    type="password"
+                                    id="alumniPassword"
+                                    class="form-control"
+                                    th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}"
+                                    aria-describedby="validationServer03FeedbackLibrarianPassword"
+                            >
+                            <span id="passwordMessage" style="color: red"></span>
+                            <div
+                                    th:each="e : ${#fields.errors('password')}"
+                                    th:text="${e}"
+                                    id="validationServer03FeedbackLibrarianPassword"
+                                    class="invalid-feedback">
+                            </div>
+                        </div>
+
+                        <!--alumni confirm password div....-->
+                        <div class="mb-3">
+                            <label for="alumniConfirmPassword" class="form-label">Alumni Confirm Password</label>
+                            <input
+                                    type="password"
+                                    id="alumniConfirmPassword"
+                                    name="password"
+                                    th:field="*{password}"
+                                    th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}"
+                                    class="form-control"
+                                    aria-describedby="validationServer03FeedbackAlumniConfirmPassword"
+                            >
+                            <span id="confirmPasswordMessage" style="color: red"></span>
+                            <div
+                                    th:each="e : ${#fields.errors('password')}"
+                                    th:text="${e}"
+                                    id="validationServer03FeedbackLibrarianConfirmPassword"
+                                    class="invalid-feedback">
+                            </div>
+                        </div>
+
+                        <!--alumni reset & submit div....-->
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div>
+                        <button type="reset" class="btn btn-primary">Reset</button>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                    <!--alumni form started....-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

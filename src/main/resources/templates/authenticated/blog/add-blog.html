@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>ICT - Library Management System</title>
+</head>
+<body>
+
+<section>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-7 col-md-6 col-sm-6 container justify-content-center card">
+                <h1 class="text-center"> Write New Blog </h1>
+                <div>
+                    <p th:text="${message}" style="color: #318043"></p>
+                    <p th:text="${dangerMessage}" style="color: red"></p>
+                </div>
+                <div class="card-body">
+
+                    <!--alumni form started....-->
+                    <form th:action="@{/blog/save}" th:object="${blogDTO}" method="post"
+                          enctype="multipart/form-data" onsubmit="return alumniFormValidator()">
+
+                        <!--blog title div....-->
+                        <div class="mb-3">
+                            <label for="blogTitle" class="form-label">Blog's Title</label>
+                            <input
+                                    type="text"
+                                    id="blogTitle"
+                                    name="name"
+                                    th:field="*{title}"
+                                    th:value="${blogDTO.title}"
+                                    th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}"
+                                    required="required"
+                                    class="form-control"
+                                    aria-describedby="validationServer03FeedbackAlumniName"
+                            >
+                            <div
+                                    th:each="e : ${#fields.errors('title')}"
+                                    th:text="${e}"
+                                    id="validationServer03FeedbackAlumniName"
+                                    class="invalid-feedback">
+                            </div>
+                        </div>
+
+                        <!--blog title div....-->
+                        <div class="mb-3">
+                            <label for="blogDescription" class="form-label">Blog's Title</label>
+                            <textarea
+                                    type="text"
+                                    id="blogDescription"
+                                    name="name"
+                                    th:field="*{description}"
+                                    th:value="${blogDTO.description}"
+                                    th:classappend="${#fields.hasErrors('description') ? 'is-invalid' : ''}"
+                                    required="required"
+                                    class="form-control"
+                                    rows="5"
+                                    aria-describedby="validationServer03FeedbackBlogDescription"
+                            ></textarea>
+                            <div
+                                    th:each="e : ${#fields.errors('description')}"
+                                    th:text="${e}"
+                                    id="validationServer03FeedbackBlogDescription"
+                                    class="invalid-feedback">
+                            </div>
+                        </div>
+
+                        <!--alumni reset & submit div....-->
+                        <button type="reset" class="btn btn-primary">Reset</button>
+                        <button type="submit" class="btn btn-success">Submit</button>
+
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>
