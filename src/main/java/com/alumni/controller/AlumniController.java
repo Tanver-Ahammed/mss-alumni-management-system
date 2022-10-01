@@ -95,4 +95,22 @@ public class AlumniController {
         return "authenticated/show-single-alumni";
     }
 
+    // get alumni by id
+    @GetMapping(path = "/my/profile")
+    public String getAlumniById(Model model, Principal principal) {
+        AlumniDTO alumni;
+        if (principal != null) {
+            // get logged-in username
+            alumni = this.alumniService.getAlumniDTOIfLoggedIn(principal);
+            model.addAttribute("name", alumni.getName());
+        } else {
+            model.addAttribute("name", null);
+            return "redirect:/auth/login";
+        }
+        model.addAttribute("alumniDTO", this.alumniService.getSingleAlumniById(alumni.getId()));
+        return "authenticated/show-single-alumni";
+    }
+
+
+
 }

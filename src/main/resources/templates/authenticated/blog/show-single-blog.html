@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>ICT - Library Management System</title>
+</head>
+<body>
+
+<section>
+
+
+    <div class="container">
+        <div class="container col-md-10" style="text-align: center">
+
+            <h1 style="text-align: center">Blog Details</h1>
+
+            <div class="card">
+                <div class="card-header">
+                    Author: <span th:text="${blogDTO.alumni.name}"></span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${blogDTO.title}"></h5>
+                    <hr>
+                    <p class="card-text" th:text="${blogDTO.description}">...</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</section>
+
+</body>
+</html>

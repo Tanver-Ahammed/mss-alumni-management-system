@@ -24,6 +24,7 @@
                         <p class="card-text" th:text="${'Contact: ' + alumniDTO.contact}"></p>
                         <p class="card-text" th:text="${'Email: ' + alumniDTO.email}"></p>
                         <a th:href="@{${'/alumni/get/' + alumniDTO.id}}" class="btn btn-success">Details</a>
+                        <a th:href="@{${'/blog/get/alumni/' + alumniDTO.id}}" class="btn btn-primary">All Blogs</a>
                     </div>
                 </div>
                 <br>

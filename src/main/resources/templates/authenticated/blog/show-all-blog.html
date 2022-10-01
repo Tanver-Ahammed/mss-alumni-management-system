@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>ICT - Alumni Management System</title>
+</head>
+<body>
+
+<section>
+
+    <div class="container">
+        <div class="row row-cols-2">
+            <div th:if="${blogDTOS.isEmpty()}">
+                <td colspan="3"> No Alumni Available Now!!</td>
+            </div>
+            <div th:each="blogDTO : ${blogDTOS}">
+                <div class="card">
+                    <div class="card-header">
+                        Author: <span th:text="${blogDTO.alumni.name}"></span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${blogDTO.title}"></h5>
+                        <hr>
+                        <p class="card-text" th:text="${blogDTO.description}"><span th:text="..."></span></p>
+                        <a th:href="@{${'/blog/get/' + blogDTO.id}}" class="btn btn-primary">Details</a>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <br><br>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>

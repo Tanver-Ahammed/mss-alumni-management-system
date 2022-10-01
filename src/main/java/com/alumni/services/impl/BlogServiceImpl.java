@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -24,6 +27,9 @@ public class BlogServiceImpl implements BlogService {
     private AlumniRepository alumniRepository;
 
     @Autowired
+    private AlumniServiceImpl alumniService;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
@@ -32,6 +38,28 @@ public class BlogServiceImpl implements BlogService {
         Blog blog = this.dtoToBlog(blogDTO);
         blog.setAlumni(alumni);
         return this.blogToDTO(this.blogRepository.save(blog));
+    }
+
+    @Override
+    public List<BlogDTO> getAllBlogs() {
+        List<BlogDTO> blogDTOS = new ArrayList<>();
+        for (Blog blog : this.blogRepository.findAll()) {
+            BlogDTO blogDTO = this.blogToDTO(blog);
+            if (blog.getDescription().length() > 41)
+                blogDTO.setDescription(blog.getDescription().substring(0, 40));
+            blogDTOS.add(blogDTO);
+        }
+        return blogDTOS;
+    }
+
+    @Override
+    public List<BlogDTO> getAllBlogsByAlumni(Long alumniId) {
+        Alumni alumni = this.alumniService.getAlumniById(alumniId);
+        return this.blogRepository
+                .findByAlumni(alumni)
+                .stream()
+                .map(this::blogToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
