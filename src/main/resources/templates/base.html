@@ -38,10 +38,11 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMD">
                         <li><a class="dropdown-item" th:href="@{/alumni/registration}">Registration Alumni</a></li>
-                        <li><a class="dropdown-item" th:href="@{/alumni/all}">All Alumni</a></li>
+                        <li><a class="dropdown-item" th:if="${name != null}" th:href="@{/alumni/all}">All Alumni</a>
+                        </li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" th:if="${name != null}">
                     <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownInventory" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Blog

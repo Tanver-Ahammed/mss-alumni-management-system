@@ -36,6 +36,7 @@ public class BlogServiceImpl implements BlogService {
     public BlogDTO addBlog(BlogDTO blogDTO, Principal principal) {
         Alumni alumni = this.alumniRepository.findByEmail(principal.getName());
         Blog blog = this.dtoToBlog(blogDTO);
+        blog.setDate(new Date().toString());
         blog.setAlumni(alumni);
         return this.blogToDTO(this.blogRepository.save(blog));
     }

@@ -57,7 +57,7 @@ public class BlogController {
 
         model.addAttribute("blogDTO", new BlogDTO());
         model.addAttribute("message", "blog is successfully added...");
-        return "authenticated/blog/add-blog";
+        return "redirect:/blog/all";
     }
 
     // get all blog
@@ -78,7 +78,7 @@ public class BlogController {
     // get blog by id
     @GetMapping(path = "/get/{blogId}")
     public String getAllBlogByBlogId(@PathVariable("blogId") Long blogId,
-                              Model model, Principal principal) {
+                                     Model model, Principal principal) {
         if (principal != null) {
             // get logged-in username
             AlumniDTO alumni = this.alumniService.getAlumniDTOIfLoggedIn(principal);
@@ -94,7 +94,7 @@ public class BlogController {
     // get all blog by alumni
     @GetMapping(path = "/get/alumni/{alumniId}")
     public String getAllBlogsAlumniId(@PathVariable("alumniId") Long alumniId,
-                             Model model, Principal principal) {
+                                      Model model, Principal principal) {
         if (principal != null) {
             // get logged-in username
             AlumniDTO alumni = this.alumniService.getAlumniDTOIfLoggedIn(principal);
@@ -103,7 +103,7 @@ public class BlogController {
             model.addAttribute("name", null);
             return "redirect:/auth/login";
         }
-        model.addAttribute("blogDTOS", this.blogService.getAllBlogs());
+        model.addAttribute("blogDTOS", this.blogService.getAllBlogsByAlumni(alumniId));
         return "authenticated/blog/show-all-blog";
     }
 
